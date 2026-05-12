@@ -1,109 +1,129 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Suscripción Premium</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suscripción Premium</title>
 
-<style>
+    <!-- 1. Importamos la librería de EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        (function() {
+            // Reemplaza "TU_PUBLIC_KEY" con tu clave pública de EmailJS
+            emailjs.init("Q8Pmp_DRm_OAKDyyl");
+        })();
+    </script>
 
-body{
-    margin:0;
-    font-family:Arial, Helvetica, sans-serif;
-    background:#0f172a;
-    color:white;
-}
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0f172a;
+            color: white;
+        }
 
-.container{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    padding:20px;
-}
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
 
-.card{
-    background:#1e293b;
-    padding:40px;
-    border-radius:20px;
-    width:400px;
-    text-align:center;
-    box-shadow:0 10px 25px rgba(0,0,0,0.4);
-}
+        .card {
+            background: #1e293b;
+            padding: 40px;
+            border-radius: 20px;
+            width: 400px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
 
-h1{
-    color:#38bdf8;
-    margin-bottom:10px;
-}
+        h1 {
+            color: #38bdf8;
+            margin-bottom: 10px;
+        }
 
-p{
-    color:#cbd5e1;
-    margin-bottom:30px;
-}
+        p {
+            color: #cbd5e1;
+            margin-bottom: 30px;
+        }
 
-input{
-    width:100%;
-    padding:15px;
-    border:none;
-    border-radius:10px;
-    margin-bottom:20px;
-    font-size:16px;
-}
+        input {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            box-sizing: border-box; /* Asegura que el padding no rompa el ancho */
+        }
 
-button{
-    width:100%;
-    padding:15px;
-    border:none;
-    border-radius:10px;
-    background:#38bdf8;
-    color:white;
-    font-size:16px;
-    cursor:pointer;
-    transition:0.3s;
-}
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: #38bdf8;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-button:hover{
-    background:#0ea5e9;
-}
+        button:hover {
+            background: #0ea5e9;
+        }
 
-</style>
-<script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/6952b997ef74273ae67a64285/a8b265c0e26ef2a401dbc4c5c.js");</script>
+        button:disabled {
+            background: #64748b;
+            cursor: not-allowed;
+        }
+    </style>
 </head>
 
 <body>
 
 <div class="container">
     <div class="card">
-
         <h1>Únete a TechNews</h1>
-
         <p>
-            Suscríbete para recibir noticias, descuentos y contenido exclusivo
-            sobre tecnología directamente en tu correo.
+            Suscríbete para recibir noticias, descuentos y contenido exclusivo sobre tecnología.
         </p>
 
-        <form action="https://formsubmit.co/TUCORREO@gmail.com" method="POST">
-
-            <input type="email" name="email" placeholder="Ingresa tu correo" required>
-
-            <!-- Asunto -->
-            <input type="hidden" name="_subject" value="Nueva Suscripción">
-
-            <!-- Plantilla HTML -->
-            <input type="hidden" name="_template" value="table">
-
-            <!-- Evita captcha -->
-            <input type="hidden" name="_captcha" value="false">
-
-            <!-- Redirección -->
-            <input type="hidden" name="_next" value="https://tupagina.com/gracias.html">
-
-            <button type="submit">Suscribirme</button>
-
+        <!-- Cambiamos el action por un ID para manejarlo con JS -->
+        <form id="contact-form">
+            <input type="email" name="user_email" id="user_email" placeholder="Ingresa tu correo" required>
+            <button type="submit" id="btn-enviar">Suscribirme</button>
         </form>
-
     </div>
 </div>
+
+<script>
+    const btn = document.getElementById('btn-enviar');
+
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Evita que la página se recargue
+
+        btn.innerText = 'Enviando...';
+        btn.disabled = true;
+
+        // "YOUR_SERVICE_ID" y "YOUR_TEMPLATE_ID" se obtienen de tu panel de EmailJS
+        const serviceID = 'default_service';
+        const templateID = 'YOUR_TEMPLATE_ID';
+
+        emailjs.sendForm(service_113hz4i, templateID, this)
+            .then(() => {
+                btn.innerText = '¡Suscrito!';
+                alert('¡Gracias por suscribirte!');
+                this.reset(); // Limpia el formulario
+            }, (err) => {
+                btn.innerText = 'Suscribirme';
+                btn.disabled = false;
+                alert('Error al enviar: ' + JSON.stringify(err));
+            });
+    });
+</script>
 
 </body>
 </html>
