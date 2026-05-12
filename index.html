@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suscripción Premium</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#0f172a;
+    color:white;
+}
+
+.container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    padding:20px;
+}
+
+.card{
+    background:#1e293b;
+    padding:40px;
+    border-radius:20px;
+    width:400px;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+
+h1{
+    color:#38bdf8;
+    margin-bottom:10px;
+}
+
+p{
+    color:#cbd5e1;
+    margin-bottom:30px;
+}
+
+input{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    margin-bottom:20px;
+    font-size:16px;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    background:#38bdf8;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#0ea5e9;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="card">
+
+        <h1>Únete a TechNews</h1>
+
+        <p>
+            Suscríbete para recibir noticias, descuentos y contenido exclusivo
+            sobre tecnología directamente en tu correo.
+        </p>
+
+        <form action="https://formsubmit.co/TUCORREO@gmail.com" method="POST">
+
+            <input type="email" name="email" placeholder="Ingresa tu correo" required>
+
+            <!-- Asunto -->
+            <input type="hidden" name="_subject" value="Nueva Suscripción">
+
+            <!-- Plantilla HTML -->
+            <input type="hidden" name="_template" value="table">
+
+            <!-- Evita captcha -->
+            <input type="hidden" name="_captcha" value="false">
+
+            <!-- Redirección -->
+            <input type="hidden" name="_next" value="https://tupagina.com/gracias.html">
+
+            <button type="submit">Suscribirme</button>
+
+        </form>
+
+    </div>
+</div>
+
+</body>
+</html>
